@@ -346,7 +346,40 @@ public class DSKhuyenMai implements IDSKhuyenMai{
 	
 	
 	
-	
+	//thong ke
+//	public void abc(String t1, String t2) {
+//		String[] inpNgBd = t1.split("/");
+//		String[] inpNgKt = t2.split("/");
+//		if(inpNgBd.length != 3 || inpNgKt.length != 3) {
+//			System.out.println("Khuyen mai nay khong ton tai");
+//		}
+//		boolean check = false;
+//		for(int i = 0; i < soluong; i++) {
+//			String[] dsNgBd = ds[i].getNgbd().split("/");
+//			String[] dsNgKt = ds[i].getNgkt().split("/");
+//			if(Integer.parseInt(inpNgBd[2]) <= Integer.parseInt(dsNgBd[2]) && Integer.parseInt(inpNgBd[2]) <= Integer.parseInt(dsNgKt[2]) &&
+//			  Integer.parseInt(inpNgBd[2]) <= Integer.parseInt(inpNgKt[2]) && Integer.parseInt(inpNgKt[2]) <= Integer.parseInt(dsNgKt[2])) {
+//				if(Integer.parseInt(inpNgBd[1]) >= Integer.parseInt(dsNgBd[1]) && Integer.parseInt(inpNgKt[1]) <= Integer.parseInt(dsNgKt[1])) {
+//					if(Integer.parseInt(inpNgBd[0]) >= Integer.parseInt(dsNgBd[0]) && Integer.parseInt(inpNgKt[0]) <= Integer.parseInt(dsNgKt[0])) {
+//						check = true;
+//						ds[i].xuat();
+//					}
+//				}
+//			}
+//		}
+//		if(check == false) {
+//			System.out.println("Khuyen mai nay khong ton tai");
+//		}
+//	}
+//	public void abc() {
+//		String t1;
+//		String t2;
+//		System.out.print("Nhap vao ngay bat dau (theo dinh dang dd/mm/yyyy): ");
+//		t1 = sc.nextLine();
+//		System.out.print("Nhap vao ngay ket thuc (theo dinh dang dd/mm/yyyy): ");
+//		t2 = sc.nextLine();
+//		abc(t1,t2);
+//	}
 	
 	
 	

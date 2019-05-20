@@ -77,7 +77,7 @@ public class DSHoaDonNhap {
         String mahd;
         while(true) {
         	do{
-    			System.out.print("- Nhap ma hoa don(5 ki tu): ");
+    			System.out.print("- Nhap ma hoa don(5 ky tu): ");
     			mahd = in.nextLine();
     		}while(mahd.length()!=5);
             //check duplicate mahd
@@ -288,7 +288,7 @@ public class DSHoaDonNhap {
     	
     }
     /*===========DELETE=========*/
-    public void xoa(String ma) throws IOException{
+    public void xoa(String ma) throws Exception{
     	//get chitietHoaDonNhap
     	DSChiTietHoaDonNhap cthdx = new DSChiTietHoaDonNhap();
     	cthdx.docFile("src/chitiethoadonnhap.txt");
@@ -307,7 +307,7 @@ public class DSHoaDonNhap {
 			System.out.println("\n!!Xoa thanh cong!!!\n");
 		}
 	}
-    public void xoa() throws IOException{
+    public void xoa() throws Exception{
     	//get chitietHoaDonNhap
     	DSChiTietHoaDonNhap cthdx = new DSChiTietHoaDonNhap();
     	cthdx.docFile("src/chitiethoadonnhap.txt");

@@ -85,37 +85,18 @@ public class ChiTietHoaDonNhap {
 		return dongiaSp;
 	}
 	/*==========INPUT & OUTPUT==========*/
-	public void nhap() throws IOException{
-		
-		do {
-			System.out.print("- Nhap ma hoa don(5 ki tu): ");
-			this.setMahd(sc.nextLine());
-		}while(mahd.length()!=5);
-		
-		do {
-			System.out.print("- Nhap ma san pham(5 ki tu): ");
-			this.setMasp(sc.nextLine());
-		}while(masp.length()!=5);
-		
-		dongia = getDonGiaSp();
-		
-		do{
-			System.out.print("- Nhap so luong: ");
-			this.setSoluong(sc.nextInt());
-		}while(soluong <= 0);
-		
-		thanhtien = (soluong * dongia) - ((soluong * dongia * 45) / 100 );
-	}
 	public void nhap(String mahd)throws Exception {
 		//get all products to check
 		DSSanPham dsSp = new DSSanPham();
 		dsSp.docFile("src/sanpham.txt");
+		SanPham[] listSp = dsSp.getDs();	//get list product to change their quantity
 		
+		//this mahd was checked in class DSHoaDonNhap at 'them' function
 		this.mahd = mahd;
 		
 		while(true) {
 			do {
-				System.out.print(" . Nhap ma san pham(5 ki tu): ");
+				System.out.print(" . Nhap ma san pham (5 ky tu): ");
 				masp = sc.nextLine();
 			}while(masp.length()!=5);
 			if(dsSp.timKiem(masp) != -1) {
@@ -127,14 +108,22 @@ public class ChiTietHoaDonNhap {
 		
 		dongia = getDonGiaSp();
 		
+		//Handle quantity
+		int pos = dsSp.timKiem(masp);
+		int oldQuantity = listSp[pos].getSoluongco(); //current quantity + new input quantity = new quantity :))
+		
 		do{
 			System.out.print(" . Nhap so luong: ");
 			soluong = sc.nextInt();
 			sc.nextLine();
 		}while(soluong <= 0);
 		
+		//update new quantity of product
+		listSp[pos].setSoluongco(soluong + oldQuantity);
+		
 		thanhtien = (soluong * dongia) - ((soluong * dongia * 45) / 100 );
-
+		
+		dsSp.ghiFile("src/sanpham.txt");
 	}
 	
 	public void xuat() {

@@ -143,6 +143,7 @@ public class ChiTietHoaDonXuat {
 		//get all product to check input
 		DSSanPham dsSp = new DSSanPham();
 		dsSp.docFile("src/sanpham.txt");
+		SanPham[] listSp = dsSp.getDs();
 		
 		this.mahd = mahd;
 		this.makm = makm;
@@ -161,13 +162,32 @@ public class ChiTietHoaDonXuat {
 		
 		dongia = getDonGiaSp();
 		
-		do{
-			System.out.print(" . Nhap so luong: ");
-			soluong = sc.nextInt();
-			sc.nextLine();
-		}while(soluong <= 0);
+		//handle quantity input
+		//check quantity input
+		int pos = dsSp.timKiem(masp);
+		int oldQuantity = listSp[pos].getSoluongco();		//save old quantity to calculate new quantity after user input
+		
+		while(true) {
+			do{
+				System.out.print(" . Nhap so luong: ");
+				soluong = sc.nextInt();
+				sc.nextLine();
+			}while(soluong <= 0);
+			if(soluong > oldQuantity) {
+				System.out.println("\n!!!So luong ban can mua lon hon so luong hien co cua san pham!!!\n");
+			}else {
+				break;
+			}
+			
+		}
+		
+		//reduce quanitty of product
+		
+		listSp[pos].setSoluongco(oldQuantity - soluong);
 		
 		thanhtien = (soluong * dongia) - ((soluong * dongia * getPtramGiamGia()) / 100);
+		
+		dsSp.ghiFile("src/sanpham.txt");
 
 	}
 	

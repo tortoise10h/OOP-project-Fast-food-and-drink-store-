@@ -287,7 +287,7 @@ public class DSHoaDonXuat {
     	sua(ma);
     }
     /*===========DELETE=========*/
-    public void xoa(String ma) throws IOException{
+    public void xoa(String ma) throws Exception{
     	//get chitiethoadonxuat
     	DSChiTietHoaDonXuat cthdx = new DSChiTietHoaDonXuat();
     	cthdx.docFile("src/chitiethoadonxuat.txt");
@@ -306,7 +306,7 @@ public class DSHoaDonXuat {
 			System.out.println("\n!!!Xoa thanh cong!!!\n");
 		}
 	}
-    public void xoa() throws IOException{
+    public void xoa() throws Exception{
     	//get chitiethoadonxuat
     	DSChiTietHoaDonXuat cthdx = new DSChiTietHoaDonXuat();
     	cthdx.docFile("src/chitiethoadonxuat.txt");

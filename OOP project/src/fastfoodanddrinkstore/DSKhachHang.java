@@ -420,15 +420,37 @@ public class DSKhachHang{
 		System.out.println("Moi ban chon san pham muon mua va so luong cua moi san pham");
 		for(int i = 0; i < sluongSanPham; i++) {
 			System.out.println("\n- San pham thu " + (i+1));
-			System.out.print(" .Ma san pham: ");
-			sanPham[i] = in.nextLine();
-			System.out.print(" .So luong: ");
-			sluong[i] = in.nextInt();
-			in.nextLine();
-			
-			//reduce quanitty of product
+			//Handle masp input
+			while(true) {
+				do {
+					System.out.print(" .Ma san pham (5 ki tu): ");
+					sanPham[i] = in.nextLine();
+				}while(sanPham[i].length()!=5);
+				if(dsSp.timKiem(sanPham[i]) != -1) {
+					break;
+				}else {
+					System.out.println("\n!!!San pham khong ton tai, xin moi nhap lai!!!\n");
+				}
+			}
+
+			//Handle quantity input
 			int pos = dsSp.timKiem(sanPham[i]);
 			int oldQuantity = listSp[pos].getSoluongco();
+			while(true) {
+				do{
+					System.out.print(" .So luong: ");
+					sluong[i] = in.nextInt();
+					in.nextLine();
+				}while(sluong[i] <= 0);
+				if(sluong[i] > oldQuantity) {
+					System.out.println("\n!!!So luong ban can mua lon hon so luong hien co cua san pham!!!\n");
+				}else {
+					break;
+				}
+				
+			}
+			//reduce quanitty of product
+			
 			listSp[pos].setSoluongco(oldQuantity - sluong[i]);
 		}
 		

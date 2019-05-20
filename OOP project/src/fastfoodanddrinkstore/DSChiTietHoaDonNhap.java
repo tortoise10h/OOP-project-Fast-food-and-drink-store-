@@ -42,18 +42,7 @@ public class DSChiTietHoaDonNhap {
 		this.ds = ds;
 	}
 	/*==========INPUT & OUTPUT===========*/
-	public void nhap() throws IOException 
-	{
-		System.out.print("Nhap so luong cua chi tiet hoa don nhap: ");
-		this.soluong = in.nextInt();
-		ds = new ChiTietHoaDonNhap[soluong];
-		for(int i = 0; i < this.soluong; i++) 
-		{			
-			System.out.println("Chi tiet hoa don " + (i+1));			
-			this.ds[i] = new ChiTietHoaDonNhap();
-			this.ds[i].nhap();
-		}
-	}
+	
 	public void nhap(String mahd) throws Exception
 	{
 		System.out.print("Nhap so luong cua chi tiet hoa don nhap: ");
@@ -77,34 +66,6 @@ public class DSChiTietHoaDonNhap {
 		}
 	}
 	/*==========ADD==========*/
-	public void them() throws IOException
-	{
-		System.out.println("Them vao hoa don nhap moi");
-		while(true) {
-			ChiTietHoaDonNhap tem = new ChiTietHoaDonNhap();
-			tem.nhap();
-			if(tim(tem.getMahd(),tem.getMasp()) == -1) {
-				them(tem);
-				break;
-			}else {
-				System.out.println("Ma bi trung xin moi nhap lai thong tin!!!");
-			}
-		}
-		
-	}
-	public void them(ChiTietHoaDonNhap tem) throws IOException{
-		ds = Arrays.copyOf(ds,soluong +1);
-		this.ds[this.soluong] = new ChiTietHoaDonNhap(tem);
-		this.soluong++;		
-		System.out.println("Da them thanh cong!");
-		System.out.println("--------------------------------------------------------------------------------------------------");
-	}
-	public void them(int x)throws Exception {
-		for(int i=0;i<x;i++) {
-			System.out.println("Them chi tiet hoa don " + (i+1));
-			them();
-		}
-	}
 	public void them(int sl, String mahd)throws Exception{
 		int oldLength = this.soluong;
     	this.soluong += sl;
@@ -152,35 +113,7 @@ public class DSChiTietHoaDonNhap {
 		return -1;
 	}
 	
-	/*==========ADJUST==========*/
-	public void sua(int x) throws IOException{
-		if(x == -1) return;
-		while(true) {
-			ChiTietHoaDonNhap hdx = new ChiTietHoaDonNhap();
-			hdx.nhap();
-			if(tim(hdx.getMahd(),hdx.getMasp()) == -1 || tim(hdx.getMahd(),hdx.getMasp()) == x) {
-				ds[x] = new ChiTietHoaDonNhap(hdx);
-				break;
-			}else {
-				System.out.println("!!!!!!!!Hoa don sua co ma bi trung voi hoa don truoc do, vui long nhap lai!!!!!!!!");
-			}
-			
-		}
-	}	
-
-	public void sua(String mahd, String masp) throws Exception{
-		sua(tim(mahd,masp));
-	}
-	public void sua() throws Exception{
-		String mahd;
-		String masp;
-		System.out.println("Nhap vao ma hoa don va ma san pham de tim dung chi tiet hoa don xuat can sua");
-		System.out.println("Nhap ma hoa don: ");
-		mahd = in.nextLine();
-		System.out.println("Nhap ma san pham: ");
-		masp = in.nextLine();
-		sua(tim(mahd,masp));
-	}
+	
 	/*==========DELETE=========*/
 	public void xoa() 
 	{	
@@ -214,15 +147,25 @@ public class DSChiTietHoaDonNhap {
 	public void xoa(String mahd, String masp) {
 		xoa(tim(mahd,masp));
 	}
-	public void xoa(String mahd) {
+	public void xoa(String mahd) throws Exception{
+		//get list of product to return quantity
+		DSSanPham dsSp = new DSSanPham();
+		dsSp.docFile("src/sanpham.txt");
+		SanPham[] listSp = dsSp.getDs();
+		
 		for(int j = 0; j < soluong; j++) {
 			for(int i = 0; i < soluong; i++) {
 				if(ds[i].getMahd().equals(mahd) == true) {
+					//return old quantity 
+					int pos = dsSp.timKiem(ds[i].getMasp());
+					int oldQuantity = listSp[pos].getSoluongco();	//get this quantity and take away quantity of delete bill => we will have the quantity before printed this bill out
+					listSp[pos].setSoluongco(oldQuantity - ds[i].getSoluong());
 					xoa(i);
 					break;
 				}
 			}
 		}
+		dsSp.ghiFile("src/sanpham.txt");
 	}
 	public void title() {
 		System.out.println("+----------+----------+------------+------------+-------+");

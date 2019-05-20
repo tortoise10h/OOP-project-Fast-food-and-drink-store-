@@ -224,15 +224,28 @@ public class DSChiTietHoaDonXuat {
 	public void xoa(String mahd, String masp) {
 		xoa(tim(mahd,masp));
 	}
-	public void xoa(String mahd) {
+	public void xoa(String mahd) throws Exception{
+		//get list of product to return quantity
+		DSSanPham dsSp = new DSSanPham();
+		dsSp.docFile("src/sanpham.txt");
+		SanPham[] listSp = dsSp.getDs();
+		
+		
 		for(int j = 0; j < soluong; j++) {
 			for(int i = 0; i < soluong; i++) {
 				if(ds[i].getMahd().equals(mahd) == true) {
+					//return quantity 
+					int pos = dsSp.timKiem(ds[i].getMasp());
+					int oldQuantity = listSp[pos].getSoluongco();	//get this quantity and plus with quantity of delete bill => we will have the quantity before printed this bill out
+					listSp[pos].setSoluongco(oldQuantity + ds[i].getSoluong());
+					//
 					xoa(i);
 					break;
 				}
 			}
 		}
+		
+		dsSp.ghiFile("src/sanpham.txt");
 	}
 	public void title() {
 		System.out.println("+----------+----------+------------+------------+-------+");

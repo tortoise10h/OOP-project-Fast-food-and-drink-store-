@@ -117,7 +117,7 @@ public class HoaDonNhap
 			
 		while(true) {
 			do {
-				System.out.print("Nhap ma nha cung cap(5 ky tu): ");
+				System.out.print("Nhap ma nha cung cap (5 ky tu): ");
 				this.mancc = sc.nextLine();
 			}while(mancc.length() != 5);
 			if(dsNcc.timKiem(mancc) != -1) {
